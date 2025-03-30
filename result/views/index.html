@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html ng-app="catsvsdogs">
+  <head>
+    <meta charset="utf-8" />
+    <title>DevOps vs Cyber***Result</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="keywords" content="docker-compose, docker, stack" />
+    <meta name="author" content="Docker" />
+    <style>
+      /* General Styling */
+      body {
+        font-family: "Arial", sans-serif;
+        margin: 0;
+        padding: 0;
+        background: white;
+        color: #fff;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+      }
+
+      #background-stats {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: -1;
+        display: flex;
+      }
+
+      #background-stats-1,
+      #background-stats-2 {
+        flex: 1;
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      #content-container {
+        text-align: center;
+        width: 90%;
+        max-width: 800px;
+      }
+
+      #content-container-center {
+        padding: 30px;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+      }
+
+      #heading {
+        font-size: 36px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: #202b62;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+      }
+
+      .choice {
+        display: inline-block;
+        width: 200px;
+        height: 100px;
+        margin: 15px;
+        padding: 15px;
+        background-color: #202b62;
+        color: #fff;
+        border-radius: 15px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .choice:hover {
+        transform: scale(1.05);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6);
+      }
+
+      .label {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+      }
+
+      .stat {
+        font-size: 36px;
+        font-weight: bold;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+      }
+
+      #result {
+        margin-top: 20px;
+        font-size: 20px;
+        font-weight: bold;
+        color: #ffeb3b;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+      }
+    </style>
+  </head>
+  <body ng-controller="statsCtrl">
+    <div id="background-stats">
+      <div id="background-stats-1"></div>
+      <div id="background-stats-2"></div>
+    </div>
+
+    <div id="content-container">
+      <!-- Heading Section -->
+      <div id="heading">
+        DevOps vs Cybersecurity: Voting Results
+      </div>
+      <p style="color: lightgray;">Organized by Muhammad Ahsan</p>
+
+      <!-- Results Container -->
+      <div id="content-container-center">
+        <div class="choice cats">
+          <div class="label">DevOps</div>
+          <div class="stat">{{aPercent | number:1}}%</div>
+        </div>
+        <div class="choice dogs">
+          <div class="label">Cyber Security</div>
+          <div class="stat">{{bPercent | number:1}}%</div>
+        </div>
+      </div>
+
+      <!-- Total Votes Section -->
+      <div id="result">
+        <span ng-if="total == 0">No votes yet</span>
+        <span ng-if="total == 1">{{total}} vote</span>
+        <span ng-if="total >= 2">{{total}} votes</span>
+      </div>
+    </div>
+
+    <script src="socket.io.js"></script>
+    <script src="angular.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

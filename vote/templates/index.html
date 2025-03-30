@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>DevOps VS Cybersecurity Your Vote!</title>
+    <base href="/index.html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="voting, {{ option_a }}, {{ option_b }}, comparison">
+    <meta name="author" content="Voting Platform Dev Team">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <style>
+      /* General Styles */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f7fc;
+        color: #333;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      #content-container {
+        width: 90%;
+        max-width: 600px;
+        padding: 20px;
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        animation: fadeIn 1s ease-in-out;
+      }
+
+      .heading {
+        font-size: 24px;
+        font-weight: bold;
+        color: #202b62;
+        margin-bottom: 15px;
+      }
+
+      .vs {
+        font-size: 28px;
+        font-weight: bold;
+        color: #ff1618;
+      }
+
+      .vote-form {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+
+      .vote-button {
+        padding: 10px 20px;
+        font-size: 18px;
+        color: white;
+        background-color: #202b62;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      .vote-button:hover {
+        background-color: #ff1618;
+        transform: scale(1.1);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+      }
+
+      .vote-button:active {
+        transform: scale(0.95);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      }
+
+      .tip {
+        font-size: 14px;
+        color: #666;
+        margin-top: 10px;
+      }
+
+      .hostname {
+        font-size: 14px;
+        color: #666;
+        margin-top: 10px;
+      }
+
+      .voted-message {
+        margin-top: 20px;
+        font-size: 16px;
+        font-weight: bold;
+        color: #202b62;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="content-container">
+      <h2 class="heading">Voting Portal</h2>
+
+      <h3 class="heading">{{ option_a }} <span class="vs">VS</span> {{ option_b }}</h3>
+
+      <p class="description">
+        Help us decide which option is better by voting for your favorite! Choose wisely, and don't worry—you can change your vote later.
+      </p>
+
+      <form id="choice" name="form" method="POST" action="/" class="vote-form">
+        <button id="a" type="submit" name="vote" class="vote-button" value="a">{{ option_a }}</button>
+        <button id="b" type="submit" name="vote" class="vote-button" value="b">{{ option_b }}</button>
+      </form>
+
+      <div id="tip" class="tip">
+        (Tip: You can change your vote at any time!)
+      </div>
+      
+      <div id="hostname" class="hostname">
+        Processed by container ID: <strong>{{ hostname }}</strong>
+      </div>
+      {% if vote %}
+      <p class="voted-message">
+        You voted for: <strong>{{ option_a if vote == "a" else option_b }}</strong>!
+      </p>
+      {% endif %}
+    </div>
+    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    {% if vote %}
+    <script>
+      var vote = "{{ vote }}";
+      if (vote === "a") {
+        $("#a").prop("disabled", true);
+        $("#a").html('{{ option_a }} <i class="fa fa-check-circle"></i>');
+        $("#b").css("opacity", "0.5");
+      } else if (vote === "b") {
+        $("#b").prop("disabled", true);
+        $("#b").html('{{ option_b }} <i class="fa fa-check-circle"></i>');
+        $("#a").css("opacity", "0.5");
+      }
+    </script>
+    {% endif %}
+  </body>
+</html>
+
